@@ -26,8 +26,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll() // Login e Cadastro são públicos
-                .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // Apenas Admin acessa /admin
+            .requestMatchers("/auth/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()                .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // Apenas Admin acessa /admin
                 .anyRequest().authenticated() // Qualquer outra rota exige estar logado
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
